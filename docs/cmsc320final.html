@@ -14276,21 +14276,21 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Pokemon is a famous video game series that has beloved fans both old and young. It revolves around "trainers" catching these creatures called Pokemon and using them in battles against others. It has become an international sensation and has spawned a multitude of other forms of entertainment such as a trading card game, movies, and an anime show. Most notably, many fans know of 10 year old Ash Ketchum, the protagonist of the Pokemon anime. The anime follows Ash and his friends on his journey to become a Pokemon Champion, the best Pokemon trainer of them all.</p>
-<p>The Pokemon anime has been on air for more than 20 years and Ash has not aged one single bit. Additionally, he has yet to become a Pokemon Champion depite the amount of time he has trained and the number of Pokemon he has encountered, until recently. In 2019, after 22 years after the initial release of the show, Ash's dream came into fruition as he has conquered the Alola league and was crowned as a Pokemon Champion.</p>
+<p>The Pokemon anime has been on air for more than 20 years and Ash has not aged one single bit (because of cartoon logic). Additionally, he has yet to become a Pokemon Champion despite the amount of time he has trained and the number of Pokemon he has encountered, until recently. In 2019, after 22 years after the initial release of the show, Ash's dream came into fruition as he has conquered the Alola league and was crowned as a Pokemon Champion (<a href="https://www.pokemonfanclub.net/did-ash-become-a-pokemon-master/#:~:text=Pokemons%20Ash%20Finally%20Becomes%20A,master%20for%20the%20first%20time.">source</a>).</p>
 <p>Here, a question arises that we would like to explore. Ash has had 22 years of experience and has accumulated a grand roster over this time. What is the best Pokemon team that Ash could assemble in terms of strength?</p>
-<p>In our case, "strength" is determined by total stats of a Pokemon and how a specific Pokemon's type fairs with others (i.e. what types are they weak to and strong against).</p>
-<p>To test how "strong" our team is, we will face it against Ash's original rival in the Pokemon anime and video game: Gary Oak.</p>
-<p><a href="https://www.pokemonfanclub.net/did-ash-become-a-pokemon-master/#:~:text=Pokemons%20Ash%20Finally%20Becomes%20A,master%20for%20the%20first%20time">https://www.pokemonfanclub.net/did-ash-become-a-pokemon-master/#:~:text=Pokemons%20Ash%20Finally%20Becomes%20A,master%20for%20the%20first%20time</a>.</p>
+<p>In our case, "strength" is determined by total stats of a Pokemon and how a specific Pokemon's type fairs with others (i.e. what types are they weak to and strong against). There are other factors that come into play such as abilities, the moves that Pokemon can use, etc. but that adds an extra level of complexity that the datasets do not currently support.</p>
+<p>To test how "strong" our team is, we will face it against Ash's original rival in the Pokemon anime and video game: Gary Oak. We will be using Gary's lineup in which he chose Squirtle as his starter Pokemon as for the most part many players of the Pokemon game chose to obtain Charmander (the rival will always pick the Pokemon that has a type advantage against yours).</p>
+<p>We will be utilizing various data sets that contain information about the stats of various Pokemon along with combat data in which we will feed to a learning model to predict the winner of this grand battle between Pokemon champions.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Link to datasets:</p>
-<p><a href="https://www.kaggle.com/datasets/mariotormo/complete-pokemon-dataset-updated-090420?select=pokedex_%28Update.04.20%29.csv">https://www.kaggle.com/datasets/mariotormo/complete-pokemon-dataset-updated-090420?select=pokedex_%28Update.04.20%29.csv</a></p>
-<p><a href="https://www.kaggle.com/datasets/terminus7/pokemon-challenge?select=tests.csv">https://www.kaggle.com/datasets/terminus7/pokemon-challenge?select=tests.csv</a></p>
-<p><a href="https://www.epicdope.com/all-of-ashs-pokemon-in-the-anime/">https://www.epicdope.com/all-of-ashs-pokemon-in-the-anime/</a></p>
-<p><a href="https://pokemon.fandom.com/wiki/Blue%27s_Pok%C3%A9mon_Teams_(Red/Green/Blue)#Charmander">https://pokemon.fandom.com/wiki/Blue%27s_Pok%C3%A9mon_Teams_(Red/Green/Blue)#Charmander</a></p>
+<p>Link to datasets used:</p>
+<p>Pokemon Stats Data: <a href="https://www.kaggle.com/datasets/mariotormo/complete-pokemon-dataset-updated-090420?select=pokedex_%28Update.04.20%29.csv">https://www.kaggle.com/datasets/mariotormo/complete-pokemon-dataset-updated-090420?select=pokedex_%28Update.04.20%29.csv</a></p>
+<p>Pokemon Combat Data: <a href="https://www.kaggle.com/datasets/terminus7/pokemon-challenge?select=tests.csv">https://www.kaggle.com/datasets/terminus7/pokemon-challenge?select=tests.csv</a></p>
+<p>Ash Pokemon Data: <a href="https://www.epicdope.com/all-of-ashs-pokemon-in-the-anime/">https://www.epicdope.com/all-of-ashs-pokemon-in-the-anime/</a></p>
+<p>Gary Pokemon Data: <a href="https://pokemon.fandom.com/wiki/Blue%27s_Pok%C3%A9mon_Teams_(Red/Green/Blue)#Charmander">https://pokemon.fandom.com/wiki/Blue%27s_Pok%C3%A9mon_Teams_(Red/Green/Blue)#Charmander</a></p>
 
 </div>
 </div>
@@ -14298,13 +14298,20 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Data-Wrangling">Data Wrangling<a class="anchor-link" href="#Data-Wrangling">&#182;</a></h2>
 </div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>To get started, we will need to clean up the datasets that we will be using by extracting only the relevant columns along with rows of Pokemon. For Ash and Gary, we will store information about the Pokemon that they have and with Ash we will do further scraping to get the best lineup he can use against Gary.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import all necessary packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -14323,10 +14330,216 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gary_dex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/Gary_pokemon.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import pokemon data from csv and filter by necessary columns</span>
+<span class="n">all_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/pokedex_(Update.04.20).csv&#39;</span><span class="p">)</span>
+<span class="n">all_pokemon</span> <span class="o">=</span> <span class="n">all_pokemon</span><span class="p">[[</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;type_1&#39;</span><span class="p">,</span> <span class="s1">&#39;type_2&#39;</span><span class="p">,</span> <span class="s1">&#39;total_points&#39;</span><span class="p">,</span> <span class="s1">&#39;against_normal&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fire&#39;</span><span class="p">,</span> <span class="s1">&#39;against_water&#39;</span><span class="p">,</span> <span class="s1">&#39;against_electric&#39;</span><span class="p">,</span> <span class="s1">&#39;against_grass&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ice&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fight&#39;</span><span class="p">,</span> <span class="s1">&#39;against_poison&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ground&#39;</span><span class="p">,</span> <span class="s1">&#39;against_flying&#39;</span><span class="p">,</span> <span class="s1">&#39;against_psychic&#39;</span><span class="p">,</span> <span class="s1">&#39;against_bug&#39;</span><span class="p">,</span> <span class="s1">&#39;against_rock&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ghost&#39;</span><span class="p">,</span> <span class="s1">&#39;against_dragon&#39;</span><span class="p">,</span> <span class="s1">&#39;against_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;against_steel&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fairy&#39;</span><span class="p">]]</span>
+<span class="n">all_pokemon</span> <span class="o">=</span> <span class="n">all_pokemon</span><span class="o">.</span><span class="n">set_axis</span><span class="p">([</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;type_1&#39;</span><span class="p">,</span> <span class="s1">&#39;type_2&#39;</span><span class="p">,</span> <span class="s1">&#39;total_points&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Fire&#39;</span><span class="p">,</span> <span class="s1">&#39;Water&#39;</span><span class="p">,</span> <span class="s1">&#39;Electric&#39;</span><span class="p">,</span> <span class="s1">&#39;Grass&#39;</span><span class="p">,</span> <span class="s1">&#39;Ice&#39;</span><span class="p">,</span> <span class="s1">&#39;Fight&#39;</span><span class="p">,</span> <span class="s1">&#39;Poison&#39;</span><span class="p">,</span> <span class="s1">&#39;Ground&#39;</span><span class="p">,</span> <span class="s1">&#39;Flying&#39;</span><span class="p">,</span> <span class="s1">&#39;Psychic&#39;</span><span class="p">,</span> <span class="s1">&#39;Bug&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Ghost&#39;</span><span class="p">,</span> <span class="s1">&#39;Dragon&#39;</span><span class="p">,</span> <span class="s1">&#39;Dark&#39;</span><span class="p">,</span> <span class="s1">&#39;Steel&#39;</span><span class="p">,</span> <span class="s1">&#39;Fairy&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">all_pokemon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pokedex_number</th>
+      <th>name</th>
+      <th>type_1</th>
+      <th>type_2</th>
+      <th>total_points</th>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
+      <th>...</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Bulbasaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>318.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Ivysaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>405.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>525.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Mega Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>625.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>Charmander</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>309.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#get Gary&#39;s list of Pokemon and retrieve data on each</span>
+<span class="n">gary_dex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/Gary_pokemon.csv&#39;</span><span class="p">)</span>
 <span class="n">gary_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">gary_dex</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">gary_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gary_pokemon</span><span class="p">,</span> <span class="n">cleaned_up</span><span class="p">[</span><span class="n">cleaned_up</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]]])</span>
+    <span class="n">gary_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gary_pokemon</span><span class="p">,</span> <span class="n">all_pokemon</span><span class="p">[</span><span class="n">all_pokemon</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]]])</span>
 <span class="n">gary_pokemon</span>
 </pre></div>
 
@@ -14371,22 +14584,22 @@ a.anchor-link {
       <th>type_1</th>
       <th>type_2</th>
       <th>total_points</th>
-      <th>against_normal</th>
-      <th>against_fire</th>
-      <th>against_water</th>
-      <th>against_electric</th>
-      <th>against_grass</th>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
       <th>...</th>
-      <th>against_ground</th>
-      <th>against_flying</th>
-      <th>against_psychic</th>
-      <th>against_bug</th>
-      <th>against_rock</th>
-      <th>against_ghost</th>
-      <th>against_dragon</th>
-      <th>against_dark</th>
-      <th>against_steel</th>
-      <th>against_fairy</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
     </tr>
   </thead>
   <tbody>
@@ -14552,12 +14765,12 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/pokedex_(Update.04.20).csv&#39;</span><span class="p">)</span>
-<span class="n">cleaned_up</span> <span class="o">=</span> <span class="n">all_pokemon</span><span class="p">[[</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;type_1&#39;</span><span class="p">,</span> <span class="s1">&#39;type_2&#39;</span><span class="p">,</span> <span class="s1">&#39;total_points&#39;</span><span class="p">,</span> <span class="s1">&#39;against_normal&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fire&#39;</span><span class="p">,</span> <span class="s1">&#39;against_water&#39;</span><span class="p">,</span> <span class="s1">&#39;against_electric&#39;</span><span class="p">,</span> <span class="s1">&#39;against_grass&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ice&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fight&#39;</span><span class="p">,</span> <span class="s1">&#39;against_poison&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ground&#39;</span><span class="p">,</span> <span class="s1">&#39;against_flying&#39;</span><span class="p">,</span> <span class="s1">&#39;against_psychic&#39;</span><span class="p">,</span> <span class="s1">&#39;against_bug&#39;</span><span class="p">,</span> <span class="s1">&#39;against_rock&#39;</span><span class="p">,</span> <span class="s1">&#39;against_ghost&#39;</span><span class="p">,</span> <span class="s1">&#39;against_dragon&#39;</span><span class="p">,</span> <span class="s1">&#39;against_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;against_steel&#39;</span><span class="p">,</span> <span class="s1">&#39;against_fairy&#39;</span><span class="p">]]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#get Ash&#39;s list of Pokemon and retrieve data on each</span>
 <span class="n">ash_dex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/Ash_pokemon.csv&#39;</span><span class="p">)</span>
 <span class="n">ash_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ash_dex</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">ash_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ash_pokemon</span><span class="p">,</span> <span class="n">cleaned_up</span><span class="p">[</span><span class="n">cleaned_up</span><span class="p">[</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Pokedex Number&#39;</span><span class="p">]]])</span>
+    <span class="n">ash_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ash_pokemon</span><span class="p">,</span> <span class="n">all_pokemon</span><span class="p">[</span><span class="n">all_pokemon</span><span class="p">[</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Pokedex Number&#39;</span><span class="p">]]])</span>
+<span class="n">ash_pokemon</span> <span class="o">=</span> <span class="n">ash_pokemon</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">)</span>
 <span class="n">ash_pokemon</span>
 </pre></div>
 
@@ -14602,22 +14815,22 @@ a.anchor-link {
       <th>type_1</th>
       <th>type_2</th>
       <th>total_points</th>
-      <th>against_normal</th>
-      <th>against_fire</th>
-      <th>against_water</th>
-      <th>against_electric</th>
-      <th>against_grass</th>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
       <th>...</th>
-      <th>against_ground</th>
-      <th>against_flying</th>
-      <th>against_psychic</th>
-      <th>against_bug</th>
-      <th>against_rock</th>
-      <th>against_ghost</th>
-      <th>against_dragon</th>
-      <th>against_dark</th>
-      <th>against_steel</th>
-      <th>against_fairy</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
     </tr>
   </thead>
   <tbody>
@@ -14629,19 +14842,19 @@ a.anchor-link {
       <td>NaN</td>
       <td>405.0</td>
       <td>1.0</td>
-      <td>2.0</td>
+      <td>2.00</td>
       <td>0.5</td>
       <td>0.5</td>
       <td>0.50</td>
       <td>...</td>
-      <td>0.5</td>
+      <td>0.50</td>
       <td>2.0</td>
       <td>1.0</td>
-      <td>2.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
     </tr>
@@ -14653,19 +14866,19 @@ a.anchor-link {
       <td>NaN</td>
       <td>390.0</td>
       <td>0.5</td>
-      <td>0.5</td>
+      <td>0.50</td>
       <td>2.0</td>
       <td>1.0</td>
       <td>2.00</td>
       <td>...</td>
-      <td>2.0</td>
+      <td>2.00</td>
       <td>0.5</td>
       <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>2.0</td>
       <td>1.0</td>
     </tr>
@@ -14677,19 +14890,19 @@ a.anchor-link {
       <td>NaN</td>
       <td>330.0</td>
       <td>1.0</td>
-      <td>0.5</td>
+      <td>0.50</td>
       <td>0.5</td>
       <td>2.0</td>
       <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>0.5</td>
       <td>1.0</td>
     </tr>
@@ -14701,19 +14914,19 @@ a.anchor-link {
       <td>Poison</td>
       <td>318.0</td>
       <td>1.0</td>
-      <td>2.0</td>
+      <td>2.00</td>
       <td>0.5</td>
       <td>0.5</td>
       <td>0.25</td>
       <td>...</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>2.0</td>
       <td>2.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>0.5</td>
     </tr>
@@ -14725,45 +14938,1077 @@ a.anchor-link {
       <td>Flying</td>
       <td>395.0</td>
       <td>1.0</td>
-      <td>2.0</td>
+      <td>2.00</td>
       <td>1.0</td>
       <td>2.0</td>
       <td>0.25</td>
       <td>...</td>
-      <td>0.0</td>
+      <td>0.00</td>
       <td>2.0</td>
       <td>1.0</td>
-      <td>0.5</td>
-      <td>4.0</td>
+      <td>0.50</td>
+      <td>4.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>6</th>
+      <td>6</td>
+      <td>Charizard</td>
+      <td>Fire</td>
+      <td>Flying</td>
+      <td>534.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
       <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>4.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>402</th>
+      <td>341</td>
+      <td>Corphish</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>308.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>278</th>
+      <td>232</td>
+      <td>Donphan</td>
+      <td>Ground</td>
+      <td>NaN</td>
+      <td>500.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1016</th>
+      <td>882</td>
+      <td>Dracovish</td>
+      <td>Water</td>
+      <td>Dragon</td>
+      <td>505.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>187</th>
+      <td>149</td>
+      <td>Dragonite</td>
+      <td>Dragon</td>
+      <td>Flying</td>
+      <td>600.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
       <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>94</td>
+      <td>Gengar</td>
+      <td>Ghost</td>
+      <td>Poison</td>
+      <td>500.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>523</th>
+      <td>443</td>
+      <td>Gible</td>
+      <td>Dragon</td>
+      <td>Ground</td>
+      <td>300.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>428</th>
+      <td>362</td>
+      <td>Glalie</td>
+      <td>Ice</td>
+      <td>NaN</td>
+      <td>480.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>555</th>
+      <td>472</td>
+      <td>Gliscor</td>
+      <td>Ground</td>
+      <td>Flying</td>
+      <td>510.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
       <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>815</th>
+      <td>706</td>
+      <td>Goodra</td>
+      <td>Dragon</td>
+      <td>NaN</td>
+      <td>600.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>764</th>
+      <td>658</td>
+      <td>Greninja</td>
+      <td>Water</td>
+      <td>Dark</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>810</th>
+      <td>701</td>
+      <td>Hawlucha</td>
+      <td>Fighting</td>
+      <td>Flying</td>
+      <td>500.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>0.00</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>257</th>
+      <td>214</td>
+      <td>Heracross</td>
+      <td>Bug</td>
+      <td>Fighting</td>
+      <td>500.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>0.50</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>846</th>
+      <td>727</td>
+      <td>Incineroar</td>
+      <td>Fire</td>
+      <td>Dark</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>469</th>
+      <td>392</td>
+      <td>Infernape</td>
+      <td>Fire</td>
+      <td>Fighting</td>
+      <td>534.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>128</th>
+      <td>99</td>
+      <td>Kingler</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>475.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>646</th>
+      <td>553</td>
+      <td>Krookodile</td>
+      <td>Ground</td>
+      <td>Dark</td>
+      <td>519.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>131</td>
+      <td>Lapras</td>
+      <td>Water</td>
+      <td>Ice</td>
+      <td>535.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>634</th>
+      <td>542</td>
+      <td>Leavanny</td>
+      <td>Bug</td>
+      <td>Grass</td>
+      <td>500.0</td>
+      <td>1.0</td>
+      <td>4.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
       <td>...</td>
+      <td>0.25</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>529</th>
+      <td>448</td>
+      <td>Lucario</td>
+      <td>Fighting</td>
+      <td>Steel</td>
+      <td>525.0</td>
+      <td>0.5</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
       <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>868</th>
+      <td>745</td>
+      <td>Lycanroc Midday Form</td>
+      <td>Rock</td>
+      <td>NaN</td>
+      <td>487.0</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
       <td>...</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>939</th>
+      <td>809</td>
+      <td>Melmetal</td>
+      <td>Steel</td>
+      <td>NaN</td>
+      <td>600.0</td>
+      <td>0.5</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>122</td>
+      <td>Mr. Mime</td>
+      <td>Psychic</td>
+      <td>Fairy</td>
+      <td>460.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>116</th>
+      <td>89</td>
+      <td>Muk</td>
+      <td>Poison</td>
+      <td>NaN</td>
+      <td>500.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>934</th>
+      <td>804</td>
+      <td>Naganadel</td>
+      <td>Poison</td>
+      <td>Dragon</td>
+      <td>540.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>204</th>
+      <td>164</td>
+      <td>Noctowl</td>
+      <td>Normal</td>
+      <td>Flying</td>
+      <td>452.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>830</th>
+      <td>715</td>
+      <td>Noivern</td>
+      <td>Flying</td>
+      <td>Dragon</td>
+      <td>535.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>592</th>
+      <td>501</td>
+      <td>Oshawott</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>308.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>628</th>
+      <td>536</td>
+      <td>Palpitoad</td>
+      <td>Water</td>
+      <td>Ground</td>
+      <td>384.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>4.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>18</td>
+      <td>Pidgeot</td>
+      <td>Normal</td>
+      <td>Flying</td>
+      <td>479.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>590</th>
+      <td>499</td>
+      <td>Pignite</td>
+      <td>Fire</td>
+      <td>Fighting</td>
+      <td>418.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>25</td>
+      <td>Pikachu</td>
+      <td>Electric</td>
+      <td>NaN</td>
+      <td>320.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>57</td>
+      <td>Primeape</td>
+      <td>Fighting</td>
+      <td>NaN</td>
+      <td>455.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>156</td>
+      <td>Quilava</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>405.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>841</th>
+      <td>722</td>
+      <td>Rowlet</td>
+      <td>Grass</td>
+      <td>Flying</td>
+      <td>320.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>301</th>
+      <td>254</td>
+      <td>Sceptile</td>
+      <td>Grass</td>
+      <td>NaN</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>656</th>
+      <td>559</td>
+      <td>Scraggy</td>
+      <td>Dark</td>
+      <td>Fighting</td>
+      <td>348.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>1.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>865</td>
+      <td>Sirfetch'd</td>
+      <td>Fighting</td>
+      <td>NaN</td>
+      <td>507.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>586</th>
+      <td>495</td>
+      <td>Snivy</td>
+      <td>Grass</td>
+      <td>NaN</td>
+      <td>308.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>181</th>
+      <td>143</td>
+      <td>Snorlax</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>540.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>7</td>
+      <td>Squirtle</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>314.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>398</td>
+      <td>Staraptor</td>
+      <td>Normal</td>
+      <td>Flying</td>
+      <td>485.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>329</th>
+      <td>277</td>
+      <td>Swellow</td>
+      <td>Normal</td>
+      <td>Flying</td>
+      <td>455.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>770</th>
+      <td>663</td>
+      <td>Talonflame</td>
+      <td>Fire</td>
+      <td>Flying</td>
+      <td>499.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>4.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
     </tr>
     <tr>
       <th>163</th>
@@ -14773,19 +16018,19 @@ a.anchor-link {
       <td>NaN</td>
       <td>490.0</td>
       <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.00</td>
       <td>...</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
       <td>0.0</td>
       <td>1.0</td>
-      <td>1.0</td>
+      <td>1.00</td>
       <td>1.0</td>
       <td>1.0</td>
     </tr>
@@ -14797,6 +16042,472 @@ a.anchor-link {
       <td>NaN</td>
       <td>470.0</td>
       <td>1.0</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>466</th>
+      <td>389</td>
+      <td>Torterra</td>
+      <td>Grass</td>
+      <td>Ground</td>
+      <td>525.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>0.50</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>158</td>
+      <td>Totodile</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>314.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>612</th>
+      <td>521</td>
+      <td>Unfezant</td>
+      <td>Normal</td>
+      <td>Flying</td>
+      <td>488.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>54 rows × 23 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will also need to see what the average stat distribution of Gary's Pokemon are and by doing so we can further filter down which of Ash's Pokemon can be utilized.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gary_avg_total_stat</span> <span class="o">=</span> <span class="n">gary_pokemon</span><span class="p">[</span><span class="s1">&#39;total_points&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gary_avg_total_stat</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>513.1666666666666
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we have the average total stat points of Gary's Pokemon, we would ideally want to have all Pokemons that would be placed on Ash's team to have an equal or higher total stat point.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ash_stat</span> <span class="o">=</span> <span class="n">ash_pokemon</span><span class="p">[</span><span class="n">ash_pokemon</span><span class="p">[</span><span class="s1">&#39;total_points&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">gary_avg_total_stat</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;total_points&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ash_stat</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pokedex_number</th>
+      <th>name</th>
+      <th>type_1</th>
+      <th>type_2</th>
+      <th>total_points</th>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
+      <th>...</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>187</th>
+      <td>149</td>
+      <td>Dragonite</td>
+      <td>Dragon</td>
+      <td>Flying</td>
+      <td>600.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>815</th>
+      <td>706</td>
+      <td>Goodra</td>
+      <td>Dragon</td>
+      <td>NaN</td>
+      <td>600.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>939</th>
+      <td>809</td>
+      <td>Melmetal</td>
+      <td>Steel</td>
+      <td>NaN</td>
+      <td>600.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>934</th>
+      <td>804</td>
+      <td>Naganadel</td>
+      <td>Poison</td>
+      <td>Dragon</td>
+      <td>540.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.50</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>181</th>
+      <td>143</td>
+      <td>Snorlax</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>540.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>131</td>
+      <td>Lapras</td>
+      <td>Water</td>
+      <td>Ice</td>
+      <td>535.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>830</th>
+      <td>715</td>
+      <td>Noivern</td>
+      <td>Flying</td>
+      <td>Dragon</td>
+      <td>535.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>2.00</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>Charizard</td>
+      <td>Fire</td>
+      <td>Flying</td>
+      <td>534.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>4.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>469</th>
+      <td>392</td>
+      <td>Infernape</td>
+      <td>Fire</td>
+      <td>Fighting</td>
+      <td>534.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.25</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>764</th>
+      <td>658</td>
+      <td>Greninja</td>
+      <td>Water</td>
+      <td>Dark</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>846</th>
+      <td>727</td>
+      <td>Incineroar</td>
+      <td>Fire</td>
+      <td>Dark</td>
+      <td>530.0</td>
+      <td>1.0</td>
       <td>0.5</td>
       <td>2.0</td>
       <td>1.0</td>
@@ -14804,14 +16515,62 @@ a.anchor-link {
       <td>...</td>
       <td>2.0</td>
       <td>1.0</td>
+      <td>0.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>0.5</td>
       <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>301</th>
+      <td>254</td>
+      <td>Sceptile</td>
+      <td>Grass</td>
+      <td>NaN</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>529</th>
+      <td>448</td>
+      <td>Lucario</td>
+      <td>Fighting</td>
+      <td>Steel</td>
+      <td>525.0</td>
       <td>0.5</td>
       <td>2.0</td>
       <td>1.0</td>
       <td>1.0</td>
+      <td>0.50</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.25</td>
+      <td>0.25</td>
       <td>1.0</td>
       <td>0.5</td>
       <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
     </tr>
     <tr>
       <th>466</th>
@@ -14829,8 +16588,8 @@ a.anchor-link {
       <td>0.5</td>
       <td>2.0</td>
       <td>1.0</td>
-      <td>2.0</td>
-      <td>0.5</td>
+      <td>2.00</td>
+      <td>0.50</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
@@ -14838,56 +16597,372 @@ a.anchor-link {
       <td>1.0</td>
     </tr>
     <tr>
-      <th>198</th>
-      <td>158</td>
-      <td>Totodile</td>
-      <td>Water</td>
-      <td>NaN</td>
-      <td>314.0</td>
+      <th>646</th>
+      <td>553</td>
+      <td>Krookodile</td>
+      <td>Ground</td>
+      <td>Dark</td>
+      <td>519.0</td>
       <td>1.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
+      <td>1.0</td>
       <td>2.0</td>
+      <td>0.0</td>
       <td>2.00</td>
       <td>...</td>
       <td>1.0</td>
       <td>1.0</td>
+      <td>0.0</td>
+      <td>2.00</td>
+      <td>0.50</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>15 rows × 23 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we have a full list of both Ash's and Gary's Pokemons and their respective data, we can now filter down Ash's Pokemon by seeing which Pokemon have a type advantage against Gary's Pokemon. First, we need to see what Gary's Pokemon are weak to.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for each of Gary&#39;s pokemon, get a list of all the types that are 2 or 4x weak</span>
+<span class="c1"># compile together and drop duplicates</span>
+<span class="c1"># get number of pokemon weak to each type by 2x or 4x</span>
+
+<span class="c1">#clean this up</span>
+
+<span class="c1">#get counter</span>
+<span class="n">np_gary</span> <span class="o">=</span> <span class="n">gary_pokemon</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">weakness_2</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">weakness_4</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">weakness_2_count</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">weakness_4_count</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gary_pokemon</span><span class="p">[</span><span class="s1">&#39;pokedex_number&#39;</span><span class="p">]:</span>
+    <span class="n">weakness_2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">weakness_4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="n">gary_pokemon</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np_gary</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">weakness_2</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">weakness_2_count</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">cur_count</span> <span class="o">=</span> <span class="n">weakness_2_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">weakness_2_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cur_count</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">weakness_2_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="n">weakness_4</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">weakness_4_count</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">cur_count</span> <span class="o">=</span> <span class="n">weakness_4_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">weakness_4_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cur_count</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">weakness_4_count</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">type_weakness_4</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weakness_4</span><span class="p">):</span>
+    <span class="n">type_weakness_4</span> <span class="o">=</span> <span class="n">type_weakness_4</span> <span class="o">+</span> <span class="n">weakness_4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+<span class="n">type_weakness_4</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">type_weakness_4</span><span class="p">))</span>
+
+<span class="n">type_weakness_2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weakness_2</span><span class="p">):</span>
+    <span class="n">type_weakness_2</span> <span class="o">=</span> <span class="n">type_weakness_2</span> <span class="o">+</span> <span class="n">weakness_2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            
+<span class="n">type_weakness_2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">type_weakness_2</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">type_weakness_4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">type_weakness_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weakness_4_count</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weakness_2_count</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[&#39;Water&#39;, &#39;Bug&#39;, &#39;Grass&#39;]
+[&#39;Electric&#39;, &#39;Ice&#39;, &#39;Poison&#39;, &#39;Ground&#39;, &#39;Steel&#39;, &#39;Ghost&#39;, &#39;Fight&#39;, &#39;Grass&#39;, &#39;Flying&#39;, &#39;Fire&#39;, &#39;Rock&#39;, &#39;Dark&#39;, &#39;Water&#39;, &#39;Bug&#39;]
+
+{&#39;Water&#39;: 4, &#39;Grass&#39;: 4, &#39;Bug&#39;: 4}
+{&#39;Electric&#39;: 2, &#39;Ice&#39;: 3, &#39;Rock&#39;: 2, &#39;Bug&#39;: 1, &#39;Ghost&#39;: 2, &#39;Dark&#39;: 2, &#39;Fight&#39;: 1, &#39;Ground&#39;: 2, &#39;Steel&#39;: 1, &#39;Water&#39;: 1, &#39;Fire&#39;: 1, &#39;Poison&#39;: 1, &#39;Flying&#39;: 1, &#39;Grass&#39;: 1}
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">types</span> <span class="o">=</span> <span class="n">type_weakness_4</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weakness_2_count</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">weakness_2_count</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+
+<span class="n">ash_stat</span><span class="p">[</span><span class="n">ash_stat</span><span class="p">[</span><span class="s1">&#39;type_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">|</span> <span class="n">ash_stat</span><span class="p">[</span><span class="s1">&#39;type_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[&#39;Water&#39;, &#39;Bug&#39;, &#39;Grass&#39;, &#39;Electric&#39;, &#39;Ice&#39;, &#39;Rock&#39;, &#39;Ghost&#39;, &#39;Dark&#39;, &#39;Ground&#39;, &#39;Electric&#39;, &#39;Ice&#39;, &#39;Rock&#39;, &#39;Ghost&#39;, &#39;Dark&#39;, &#39;Ground&#39;, &#39;Electric&#39;, &#39;Ice&#39;, &#39;Rock&#39;, &#39;Ghost&#39;, &#39;Dark&#39;, &#39;Ground&#39;]
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pokedex_number</th>
+      <th>name</th>
+      <th>type_1</th>
+      <th>type_2</th>
+      <th>total_points</th>
+      <th>Normal</th>
+      <th>Fire</th>
+      <th>Water</th>
+      <th>Electric</th>
+      <th>Grass</th>
+      <th>...</th>
+      <th>Ground</th>
+      <th>Flying</th>
+      <th>Psychic</th>
+      <th>Bug</th>
+      <th>Rock</th>
+      <th>Ghost</th>
+      <th>Dragon</th>
+      <th>Dark</th>
+      <th>Steel</th>
+      <th>Fairy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>167</th>
+      <td>131</td>
+      <td>Lapras</td>
+      <td>Water</td>
+      <td>Ice</td>
+      <td>535.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
+    </tr>
+    <tr>
+      <th>764</th>
+      <td>658</td>
+      <td>Greninja</td>
+      <td>Water</td>
+      <td>Dark</td>
+      <td>530.0</td>
       <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>846</th>
+      <td>727</td>
+      <td>Incineroar</td>
+      <td>Fire</td>
+      <td>Dark</td>
+      <td>530.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
       <td>0.5</td>
       <td>1.0</td>
     </tr>
     <tr>
-      <th>612</th>
-      <td>521</td>
-      <td>Unfezant</td>
-      <td>Normal</td>
-      <td>Flying</td>
-      <td>488.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <th>301</th>
+      <td>254</td>
+      <td>Sceptile</td>
+      <td>Grass</td>
+      <td>NaN</td>
+      <td>530.0</td>
       <td>1.0</td>
       <td>2.0</td>
-      <td>0.50</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
       <td>...</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
       <td>0.5</td>
       <td>2.0</td>
-      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
       <td>1.0</td>
     </tr>
+    <tr>
+      <th>466</th>
+      <td>389</td>
+      <td>Torterra</td>
+      <td>Grass</td>
+      <td>Ground</td>
+      <td>525.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>646</th>
+      <td>553</td>
+      <td>Krookodile</td>
+      <td>Ground</td>
+      <td>Dark</td>
+      <td>519.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
   </tbody>
 </table>
-<p>68 rows × 23 columns</p>
+<p>6 rows × 23 columns</p>
 </div>
 </div>
 
@@ -14897,6 +16972,12 @@ a.anchor-link {
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we have a list of Gary's weaknesses, we will also need to see which of the Ash's current list of Pokemon</p>
+
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14908,9 +16989,118 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#box plot of final teams of gary&#39;s and ash based on stats </span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#include stats vs typing scatter plot?</span>
 <span class="c1">#specify list of types that a team is specifically weak to or not strong against?</span>
 <span class="c1">#mean stats and type?</span>
+
+<span class="n">combats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/combats.csv&quot;</span><span class="p">)</span>
+<span class="n">combats_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>First_pokemon</th>
+      <th>Second_pokemon</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>266</td>
+      <td>298</td>
+      <td>298</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>702</td>
+      <td>701</td>
+      <td>701</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>191</td>
+      <td>668</td>
+      <td>668</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>237</td>
+      <td>683</td>
+      <td>683</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>151</td>
+      <td>231</td>
+      <td>151</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#split into training and testing model</span>
 </pre></div>
 
      </div>
@@ -14922,6 +17112,12 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Pokemon has grown to be a complex game with many battle mechanics that we were not able to show fully in the above data analysis. However, we can clearly see the importance of stats and typing when it comes to gauging the best team suited for a particular battle.</p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
